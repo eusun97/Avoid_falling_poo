@@ -39,6 +39,14 @@ poo_y_pos = 0
 
 poo_speed = 20
 
+# 폰트 정의
+font = pygame.font.Font(None, 55)
+
+# 총 시간
+total_time = 20
+
+start_ticks = pygame.time.get_ticks()
+
 running = True
 while running:
     dt = clock.tick(30)
@@ -91,9 +99,18 @@ while running:
     screen.blit(char, (char_x_pos, char_y_pos))
     screen.blit(poo, (poo_x_pos, poo_y_pos))
 
+# 타이머
+    time = (pygame.time.get_ticks() - start_ticks) / 1000
+    timer = font.render(str(int(total_time - time)), True, (0,0,0))
+
+    screen.blit(timer, (10,10))
+
+    if total_time - time <= 0:
+        print("-- [성공] 게임을 종료합니다. --")
+        running = False
 
     pygame.display.update()
-    
+
 pygame.time.delay(2000)
 pygame.quit()
 
