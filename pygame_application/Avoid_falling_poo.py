@@ -37,7 +37,7 @@ poo_height = poo_size[1]
 poo_x_pos = random.randint(0, screen_width - poo_width)
 poo_y_pos = 0
 
-poo_speed = 10
+poo_speed = 20
 
 running = True
 while running:
@@ -73,6 +73,18 @@ while running:
         poo_y_pos = 0 # 똥 좌표를 다시 맨위로 올림
         poo_x_pos = random.randint(0, screen_width - poo_width) # 똥을 새롭게 만들기
 
+# 충돌 처리
+    char_rect = char.get_rect()
+    char_rect.left = char_x_pos
+    char_rect.top = char_y_pos
+
+    poo_rect = poo.get_rect()
+    poo_rect.left = poo_x_pos
+    poo_rect.top = poo_y_pos
+
+    if char_rect.colliderect(poo_rect):
+        print("-- [실패] 똥을 맞았습니다. --")
+        running = False
 
 # 화면에 그리기
     screen.blit(back, (0,0))
@@ -81,7 +93,8 @@ while running:
 
 
     pygame.display.update()
-
+    
+pygame.time.delay(2000)
 pygame.quit()
 
 
