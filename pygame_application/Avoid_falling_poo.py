@@ -1,3 +1,4 @@
+import random
 import pygame
 
 pygame.init()
@@ -28,6 +29,16 @@ to_x = 0
 
 char_speed = 1
 
+# 똥 만들기
+poo = pygame.image.load('C:\\Pygame_application\\pygame_application\\poo.png')
+poo_size = poo.get_rect().size
+poo_width = poo_size[0]
+poo_height = poo_size[1]
+poo_x_pos = random.randint(0, screen_width - poo_width)
+poo_y_pos = 0
+
+poo_speed = 10
+
 running = True
 while running:
     dt = clock.tick(30)
@@ -55,10 +66,18 @@ while running:
     elif char_x_pos > screen_width - char_width:
         char_x_pos = screen_width - char_width
 
+    poo_y_pos += poo_speed
+
+# 똥 위치 정의
+    if poo_y_pos > screen_height: # 맨밑으로 떨어졌으면
+        poo_y_pos = 0 # 똥 좌표를 다시 맨위로 올림
+        poo_x_pos = random.randint(0, screen_width - poo_width) # 똥을 새롭게 만들기
+
 
 # 화면에 그리기
     screen.blit(back, (0,0))
     screen.blit(char, (char_x_pos, char_y_pos))
+    screen.blit(poo, (poo_x_pos, poo_y_pos))
 
 
     pygame.display.update()
